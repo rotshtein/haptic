@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.os.Vibrator;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.WindowManager;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
@@ -22,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
 
         ServerThread serverThread = new ServerThread();
         serverThread.start();
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
     }
 
     private class ServerThread extends Thread {
@@ -33,8 +35,8 @@ public class MainActivity extends AppCompatActivity {
             try {
                 sock = new DatagramSocket(new InetSocketAddress("0.0.0.0", 12345));
             } catch (SocketException e) {
-                e.printStackTrace();
-                Log.e("VibraNET", "no socket", e);
+                //e.printStackTrace();
+                //Log.e("VibraNET", "no socket", e);
                 return;
             }
             DatagramPacket pkt = new DatagramPacket(msg, msg.length);
